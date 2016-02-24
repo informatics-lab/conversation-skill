@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='conversation-skill',
+setup(name='conversation',
       version='0.1',
       install_requires=[
           "dotmap"
