@@ -17,7 +17,7 @@ Coversation Skill
       maintainer_email='rachel.prudden@informaticslab.co.uk',
       url='https://github.com/met-office-lab/conversation-skill',
       license='TBC',
-      packages=['conversation'],
+      packages=['.'],
       classifiers=[
           'Programming Language :: Python :: 2.7',
       ]
