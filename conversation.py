@@ -159,6 +159,7 @@ def mk_session_class(mixin):
 
             mixin.__init__(self)
 
+            self.event.session.current_intent = "None"
             try:
                 # Copy input from user interaction (`self.event.session.attributes.current_intent`)
                 # into the persisted location (`self.event.session.current_intent`)
@@ -167,11 +168,8 @@ def mk_session_class(mixin):
                 try:
                     if self._ir_map[self.event.request.intent.name]['grab_session']:
                             self.event.session.current_intent = self.event.request.intent.name
-                    else:
-                        self.event.session.current_intent = "None"
                 except:
-                    self.event.session.current_intent = "None"
-
+                    pass
             try:
                 self.default_values = self.all_default_values[self.event.session.current_intent]['default_values']
                 self.general_config = self.all_default_values[self.event.session.current_intent]['general_config']
