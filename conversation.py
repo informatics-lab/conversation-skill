@@ -157,6 +157,8 @@ def mk_session_class(mixin):
 
             self.primary_slot = primary_slot
 
+            mixin.__init__(self)
+
             try:
                 # Copy input from user interaction (`self.event.session.attributes.current_intent`)
                 # into the persisted location (`self.event.session.current_intent`)
@@ -195,8 +197,6 @@ def mk_session_class(mixin):
             self.reprompt = self.speech_config.session.reprompt
             self.sign_off = self.speech_config.session.sign_off
             self.help = self.speech_config.session.help
-
-            mixin.__init__(self)
 
         @staticmethod
         def _unnest_dict(nested_dict):
