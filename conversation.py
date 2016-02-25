@@ -164,9 +164,12 @@ def mk_session_class(mixin):
                 # into the persisted location (`self.event.session.current_intent`)
                 self.event.session.current_intent = self.event.session.attributes.current_intent
             except AttributeError:
-                if self._ir_map[self.event.request.intent.name]['grab_session']:
-                        self.event.session.current_intent = self.event.request.intent.name
-                else:
+                try:
+                    if self._ir_map[self.event.request.intent.name]['grab_session']:
+                            self.event.session.current_intent = self.event.request.intent.name
+                    else:
+                        self.event.session.current_intent = "None"
+                except:
                     self.event.session.current_intent = "None"
 
             try:
