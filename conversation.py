@@ -162,7 +162,10 @@ def mk_session_class(mixin):
                 # into the persisted location (`self.event.session.current_intent`)
                 self.event.session.current_intent = self.event.session.attributes.current_intent
             except AttributeError:
-                self.event.session.current_intent = "None"
+                if self._ir_map[self.event.request.intent.name]['grab_session']:
+                        self.event.session.current_intent = self.event.request.intent.name
+                else:
+                    self.event.session.current_intent = "None"
 
             try:
                 self.default_values = self.all_default_values[self.event.session.current_intent]['default_values']
@@ -237,6 +240,8 @@ def mk_session_class(mixin):
                 nested_dict.update(this)
 
             return nested_dict
+
+
 
         def _get_slot_interactions(self):
             """
@@ -316,11 +321,6 @@ def mk_session_class(mixin):
             if self.event.request.type == "LaunchRequest":
                 speech = self.greeting_speech
             elif self.event.request.type == "IntentRequest":
-                try:
-                    if self._ir_map[self.event.request.intent.name]['grab_session']:
-                        self.event.session.current_intent = self.event.request.intent.name
-                except KeyError:
-                    pass
                 speech = self.attempt_intent()
             elif self.event.request.type == "SessionEndedRequest":
                 pass
