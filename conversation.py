@@ -269,7 +269,7 @@ def mk_session_class(mixin):
                                       for this_slot in self.event.session.slots.values()]
 
                 # load in pythnon obejcts from config
-                config_slots = [DotMap({"name": k}) k for k in general_config]
+                config_slots = [DotMap({"name": k}) for k in general_config]
                 slot_interactions.extend([SlotInteraction(self.event,
                                                           this_slot,
                                                           self.speech_config,
