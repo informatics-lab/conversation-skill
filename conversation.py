@@ -258,6 +258,7 @@ def mk_session_class(mixin):
             try:
                 pslot = self.event.session.slots[self.primary_slot].value
                 default_values = self.default_values[pslot]
+                general_config = self.general_config[pslot]
 
                 # load in default slot values from config, or insert questioning SlotInteraction
                 # if not in default values.
@@ -272,7 +273,7 @@ def mk_session_class(mixin):
                 slot_interactions.extend([SlotInteraction(self.event,
                                                           this_slot,
                                                           self.speech_config,
-                                                          default_values)
+                                                          general_config)
                                         for this_slot in config_slots])
             except (KeyError, AttributeError):
                 raise PrimarySlotError(self.say("Sorry, I didn't recognise that "+self.primary_slot,
