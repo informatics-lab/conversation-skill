@@ -126,7 +126,7 @@ def mk_session_class(mixin):
         Designed around the Amazon Alexa Skills Kit
 
         """
-        def __init__(self, event, context, speech_config, default_values, primary_slot, cache):
+        def __init__(self, event, context, speech_config, default_values, cache):
             """
             Args:
 
@@ -155,24 +155,27 @@ def mk_session_class(mixin):
             self.speech_config = DotMap(speech_config)
             self.all_default_values = DotMap(default_values)
 
-            self.primary_slot = primary_slot
+            self.primary_slot = None
 
             mixin.__init__(self)
 
-            self.event.session.current_intent = "None"
             try:
                 # Copy input from user interaction (`self.event.session.attributes.current_intent`)
                 # into the persisted location (`self.event.session.current_intent`)
                 self.event.session.current_intent = self.event.session.attributes.current_intent
             except AttributeError:
+                self.event.session.current_intent = "None"
                 try:
                     if self._ir_map[self.event.request.intent.name]['grab_session']:
                             self.event.session.current_intent = self.event.request.intent.name
                 except:
                     pass
+
             try:
+                # Load default values from current intent
                 self.default_values = self.all_default_values[self.event.session.current_intent]['default_values']
                 self.general_config = self.all_default_values[self.event.session.current_intent]['general_config']
+                self.primary_slot = self._ir_map[self.event.session.current_intent]['primary_slot']
             except:
                 self.default_values = self.all_default_values[self.event.request.intent.name]['default_values']
                 self.general_config = self.all_default_values[self.event.request.intent.name]['general_config']
@@ -251,7 +254,7 @@ def mk_session_class(mixin):
             returns [SlotInteraction]
 
             """
-            if not self.primary_slot in self.event.session.slots:
+            if not self.primary_slot:
                 # load in default slot values from config
                 slot_interactions = [SlotInteraction(self.event,
                                                       this_slot,
