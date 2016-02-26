@@ -10,9 +10,8 @@ the speech config to prompt the user for that slot value.
 
 Usage is as follows:
 
-  Session = conversation.mk_session_class(MyIntentRequestHandlers)
-  
-  session = Session(event, context, speech_config, default_values, cache)
+    Session = conversation.mk_session_class(MyIntentRequestHandlers)
+    session = Session(event, context, speech_config, default_values, cache)
 
 An example application built on this tool is https://github.com/met-office-lab/dre-skill
 
@@ -24,17 +23,17 @@ that can't be overridden by the user.
 D can have two forms, depending on whether the intent uses a primary slot or not.
 If it doesn't use a primary slot, D has the form 
 
-                {slot: default, ...}.
+    {slot: default, ...}.
                 
 If it does use a primary slot, D has the form 
 
-                {primary_slot: {slot: default, ...}, ...}
+    {primary_slot: {slot: default, ...}, ...}
 
 ## speech_config
 
 A dictionary of the form 
 
-  {
+    {
     "session": {"greeting": greeting,
                 "reprompt": reprompt,
                 "sign_off": sign_off,
@@ -44,7 +43,7 @@ A dictionary of the form
            "reprompt": reprompt,
            "help": help},
      ...
-  }
+    }
 
 ## MyIntentRequestHandlers
 
@@ -58,13 +57,19 @@ is to run after all the slots have been filled.
 
 A dictionary with the form 
 
-  {intent_name: {'function': class_method, 'terminating': ends_session}}
+    {intent_name: {'function': class_method, 'terminating': ends_session}}
 
 ### _ir_map
 
 A dictionary with the form 
 
-  {intent_name: {'function': class_method, 'grab_session': is_main_intent, ?'primary_slot': slot_name/False}}
+    {
+     intent_name: {
+                    'function': class_method, 
+                    'grab_session': is_main_intent, 
+                    ?'primary_slot': slot_name/False
+                  }
+    }
 
 where 'primary_slot' is only needed when grab_session is True.
   
