@@ -23,8 +23,11 @@ G is just a dictionary with no special format. It should be used for storing any
 that can't be overridden by the user.
 D can have two forms, depending on whether the intent uses a primary slot or not.
 If it doesn't use a primary slot, D has the form 
+
                 {slot: default, ...}.
+                
 If it does use a primary slot, D has the form 
+
                 {primary_slot: {slot: default, ...}, ...}
 
 ## speech_config
@@ -32,15 +35,25 @@ If it does use a primary slot, D has the form
 A dictionary of the form 
 
 {
+
   "session": {"greeting": greeting,
+  
               "reprompt": reprompt,
+              
               "sign_off": sign_off,
+              
               "help": help},
+              
   slot: {"title": title,
+  
          "question": question,
+         
          "reprompt": reprompt,
+         
          "help": help},
+         
    ...
+   
 }
 
 ## MyIntentRequestHandlers
@@ -53,10 +66,15 @@ is to run after all the slots have been filled.
 
 ### _interrupting_ir_map
 
-A dictionary with the form {intent_name: {'function': class_method, 'terminating': ends_session}}
+A dictionary with the form 
+
+{intent_name: {'function': class_method, 'terminating': ends_session}}
 
 ### _ir_map
 
-A dictionary with the form {intent_name: {'function': class_method, 'grab_session': is_main_intent, ?'primary_slot': slot_name/False}}
+A dictionary with the form 
+
+{intent_name: {'function': class_method, 'grab_session': is_main_intent, ?'primary_slot': slot_name/False}}
+
 where 'primary_slot' is only needed when grab_session is True.
   
