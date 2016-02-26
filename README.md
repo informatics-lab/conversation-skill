@@ -9,7 +9,9 @@ it by first checking the default slot config. If no default value is found in th
 the speech config to prompt the user for that slot value.
 
 Usage is as follows:
+
   Session = conversation.mk_session_class(MyIntentRequestHandlers)
+  
   session = Session(event, context, speech_config, default_values, cache)
 
 An example application built on this tool is https://github.com/met-office-lab/dre-skill
@@ -28,6 +30,7 @@ If it does use a primary slot, D has the form
 ## speech_config
 
 A dictionary of the form 
+
 {
   "session": {"greeting": greeting,
               "reprompt": reprompt,
