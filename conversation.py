@@ -177,8 +177,12 @@ def mk_session_class(mixin):
                 self.general_config = self.all_default_values[self.event.session.current_intent]['general_config']
                 self.primary_slot = self._ir_map[self.event.session.current_intent]['primary_slot']
             except:
-                self.default_values = self.all_default_values[self.event.request.intent.name]['default_values']
-                self.general_config = self.all_default_values[self.event.request.intent.name]['general_config']
+                try:
+                    self.default_values = self.all_default_values[self.event.request.intent.name]['default_values']
+                    self.general_config = self.all_default_values[self.event.request.intent.name]['general_config']
+                except:
+                    self.default_values = None;
+                    self.general_config = None;
 
             try:
                 # Are there any stored slots to be retrieved?
