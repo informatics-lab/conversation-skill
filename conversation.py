@@ -160,7 +160,7 @@ def mk_session_class(mixin):
             self.primary_slot = None
 
             # Custom slots for mixin
-            self.event.session.custom = {}
+            self.event.session.custom = DotMap()
             try:
                 self.event.session.custom = self.event.session.attributes.custom
             except:
