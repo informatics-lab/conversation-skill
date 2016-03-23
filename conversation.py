@@ -173,6 +173,7 @@ def mk_session_class(mixin):
                 except:
                     pass
 
+            self.event.session.custom = {}
             try:
                 self.event.session.custom = self.event.session.attributes.custom
             except:
