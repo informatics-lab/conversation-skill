@@ -50,7 +50,7 @@ class ConstructSpeechMixin(object):
             'version': '1.0',
             'sessionAttributes': {'slots': self.event.session.toDict()['slots'], 
                                   'current_intent': self.event.session.current_intent,
-                                  'custom': self.event.session.custom
+                                  'custom': self.event.session.custom.toDict()
                                   },
             'response': {
                 'outputSpeech': {
