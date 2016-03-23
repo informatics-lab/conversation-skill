@@ -159,6 +159,13 @@ def mk_session_class(mixin):
 
             self.primary_slot = None
 
+            # Custom slots for mixin
+            self.event.session.custom = {}
+            try:
+                self.event.session.custom = self.event.session.attributes.custom
+            except:
+                pass
+
             mixin.__init__(self)
 
             try:
@@ -172,12 +179,6 @@ def mk_session_class(mixin):
                             self.event.session.current_intent = self.event.request.intent.name
                 except:
                     pass
-
-            self.event.session.custom = {}
-            try:
-                self.event.session.custom = self.event.session.attributes.custom
-            except:
-                pass
 
             try:
                 # Load default values from current intent
