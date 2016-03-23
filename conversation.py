@@ -49,7 +49,9 @@ class ConstructSpeechMixin(object):
         return {
             'version': '1.0',
             'sessionAttributes': {'slots': self.event.session.toDict()['slots'], 
-                                  'current_intent': self.event.session.current_intent},
+                                  'current_intent': self.event.session.current_intent,
+                                  'custom': self.event.session.custom
+                                  },
             'response': {
                 'outputSpeech': {
                     'type': 'PlainText',
@@ -170,6 +172,11 @@ def mk_session_class(mixin):
                             self.event.session.current_intent = self.event.request.intent.name
                 except:
                     pass
+
+            try:
+                self.event.session.custom = self.event.session.attributes.custom
+            except:
+                pass
 
             try:
                 # Load default values from current intent
